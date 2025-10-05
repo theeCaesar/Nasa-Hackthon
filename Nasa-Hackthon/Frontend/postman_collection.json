@@ -1,0 +1,240 @@
+{
+  "info": {
+    "_postman_id": "c3c3b4c2-1111-4444-aaaa-123456789abc",
+    "name": "Space Biology Knowledge Engine API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "A collection of requests demonstrating how to interact with the Space Biology Knowledge Engine backend. Update the baseUrl variable to point at your local server."
+  },
+  "item": [
+    {
+      "name": "Summarise publication by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/summarize/{{publicationId}}?style=expert&force=false",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "summarize", "{{publicationId}}"],
+          "query": [
+            { "key": "style", "value": "expert" },
+            { "key": "force", "value": "false" }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Summarise arbitrary text",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Effects of space radiation on cardiovascular health\",\n  \"text\": \"Space radiation exposure is a major concern for long-duration missions...\",\n  \"style\": \"student\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/v1/summarize", "host": ["{{baseUrl}}"], "path": ["api", "v1", "summarize"] }
+      },
+      "response": []
+    },
+    {
+      "name": "Semantic search",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/search?q=microgravity&limit=5",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "search"],
+          "query": [
+            { "key": "q", "value": "microgravity" },
+            { "key": "limit", "value": "5" },
+            { "key": "year", "value": "" },
+            { "key": "own", "value": "" }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Chat",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"How does microgravity affect bone density?\" }\n  ],\n  \"top_k\": 2\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/v1/chat", "host": ["{{baseUrl}}"], "path": ["api", "v1", "chat"] }
+      },
+      "response": []
+    },
+    {
+      "name": "Generate study cards",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cards/{{publicationId}}?count=3&pdf=false",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "cards", "{{publicationId}}"],
+          "query": [
+            { "key": "count", "value": "3" },
+            { "key": "pdf", "value": "false" }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/analysis/stats",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "analysis", "stats"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Sign up",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"alice\",\n  \"email\": \"alice@example.com\",\n  \"password\": \"secret\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/auth/signup",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "auth", "signup"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Log in",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"alice\",\n  \"password\": \"secret\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "auth", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add resource",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Review of algae growth in microgravity\",\n  \"link\": \"https://doi.org/10.1000/example\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/users/resources",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "users", "resources"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List my resources",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/users/resources",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "users", "resources"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a resource",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/users/resources/{{resourceId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "users", "resources", "{{resourceId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Send contact message (anonymous)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"visitor@example.com\",\n  \"message\": \"I love this project!\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/contact",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "contact"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Send contact message (authenticated)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"Please add more plant biology papers.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/contact",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "contact"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5001" },
+    { "key": "publicationId", "value": "<replace-with-id>" }
+    , { "key": "token", "value": "<your-jwt-token>" }
+    , { "key": "resourceId", "value": "<your-resource-id>" }
+  ]
+}
